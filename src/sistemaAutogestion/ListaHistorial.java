@@ -75,4 +75,11 @@ public class ListaHistorial implements IListaHistorial{
         return this.cantNodos;
     }
     
+    // METODOS AUX
+    public void listarRecursivo(NodoHistorial aux){        
+        if(aux != null){
+            System.out.println("Detalles: " + aux.getDetalles() + " Medico: " + aux.getDetalles());
+            listarRecursivo(aux.getSiguiente());
+        }
+    }
 }

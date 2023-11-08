@@ -160,8 +160,20 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno cerrarConsulta(int codMédico, int ciPaciente, Date fechaConsulta) {
+        NodoMedico medico = lm.obtenerMedico(codMédico);
+        NodoReserva reserva = lr.obtenerReserva(codMédico, ciPaciente);
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(medico == null){
+            return new Retorno(Retorno.Resultado.ERROR_1);
+        }
+        if(reserva == null || !reserva.getFecha().equals(fechaConsulta)){
+           return new Retorno(Retorno.Resultado.ERROR_2); 
+        }
+        
+        reserva.setEstado("no asistio");
+        lp.obtenerPaciente(ciPaciente).lh.agregarInicio("No asistio", codMédico, fechaConsulta);
+        
+        return new Retorno(Retorno.Resultado.OK); 
     }
 
     @Override
@@ -189,8 +201,13 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
-    public Retorno listarPacientesEnEspera(String codMédico, Date fecha) {
-              throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Retorno listarPacientesEnEspera(int codMédico, Date fecha) {
+        boolean isEmpty = lr.listarEnEspera(codMédico, fecha);
+        if(isEmpty){
+           return new Retorno(Retorno.Resultado.ERROR_1); 
+        }
+        
+        return new Retorno(Retorno.Resultado.OK); 
     }
 
     @Override
@@ -200,7 +217,14 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno historiaClínicaPaciente(int ci) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        NodoPaciente paciente = lp.obtenerPaciente(ci);
+        if(paciente == null){
+            return new Retorno(Retorno.Resultado.ERROR_1); 
+        }
+        
+        paciente.lh.listarRecursivo(paciente.lh.getInicio());
+        return new Retorno(Retorno.Resultado.OK); 
+
     }
 
     @Override

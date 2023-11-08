@@ -105,6 +105,7 @@ public class ListaReserva implements IListaReserva{
         }
         return null;
     }
+    
     public boolean listarEnEspera(int codMedico, Date fecha){
         boolean isEmpty = true;
         if (!this.esVacia()) {
