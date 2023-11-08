@@ -131,7 +131,7 @@ public class Sistema implements IObligatorio {
         }
         
         NodoReserva reserva = lr.obtenerReserva(codMedico, CIPaciente);
-        if(reserva == null || (reserva != null && !reserva.getFecha().equals(today))){
+        if(reserva == null || !reserva.getFecha().equals(today) ){
             return new Retorno(Retorno.Resultado.ERROR_2);
         }
         
@@ -143,11 +143,24 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno terminarConsultaMedicoPaciente(int CIPaciente, int codMedico, String detalleDeConsulta) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        NodoPaciente paciente = lp.obtenerPaciente(CIPaciente);
+        NodoReserva reserva = lr.obtenerReserva(codMedico, CIPaciente);
+        if(paciente == null){
+            return new Retorno(Retorno.Resultado.ERROR_1);
+        }
+        if(reserva == null || !reserva.getEstado().equals("en espera")){
+            return new Retorno(Retorno.Resultado.ERROR_2);
+        }
+        
+        reserva.setEstado("terminada");
+        paciente.lh.agregarInicio(detalleDeConsulta, codMedico, new Date());
+        
+        return new Retorno(Retorno.Resultado.OK);
     }
 
     @Override
-    public Retorno cerrarConsulta(String codMédico, Date fechaConsulta) {
+    public Retorno cerrarConsulta(int codMédico, int ciPaciente, Date fechaConsulta) {
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -172,7 +185,7 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno listarPacientesEnEspera(String codMédico, Date fecha) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+              throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

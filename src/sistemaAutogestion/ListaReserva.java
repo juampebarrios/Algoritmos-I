@@ -105,4 +105,19 @@ public class ListaReserva implements IListaReserva{
         }
         return null;
     }
+    public boolean listarEnEspera(int codMedico, Date fecha){
+        boolean isEmpty = true;
+        if (!this.esVacia()) {
+            NodoReserva aux = this.getInicio();
+            while (aux != null) {
+                if(aux.getCodMedico() == codMedico && aux.getFecha().equals(fecha) && aux.getEstado().equals("en espera")){
+                    System.out.println("Paciente: " + aux.getCiPaciente() + " Medico: " + aux.getCodMedico());
+                    isEmpty = false;
+                }
+                aux = aux.getSiguiente();
+            }
+        }
+        return isEmpty;
+    }
+
 }

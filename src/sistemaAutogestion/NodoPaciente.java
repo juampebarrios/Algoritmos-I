@@ -5,13 +5,15 @@ public class NodoPaciente {
     int CI;
     String direccion;
     NodoPaciente siguiente;
-
+    ListaHistorial lh;
+            
     //NODO PACIENTE
     public NodoPaciente(String nombre, int CI, String direccion) {
         this.nombre = nombre;
         this.CI = CI;
         this.direccion = direccion;
         this.siguiente = null;
+        this.lh = new ListaHistorial();
     }
 
     //GETTERS Y SETTERS
@@ -47,4 +49,13 @@ public class NodoPaciente {
         this.siguiente = siguiente;
     }
 
+    public ListaHistorial getLh() {
+        return lh;
+    }
+
+    public void setLh(ListaHistorial lh) {
+        this.lh = lh;
+    }
+
+    
 }
