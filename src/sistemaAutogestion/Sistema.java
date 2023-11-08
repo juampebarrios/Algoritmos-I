@@ -180,7 +180,12 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno listarConsultas(int codMédico) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (lm.obtenerMedico(codMédico) == null) {
+            return new Retorno(Retorno.Resultado.ERROR_1);
+        }
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        lr.listar();
+        return ret;
     }
 
     @Override
