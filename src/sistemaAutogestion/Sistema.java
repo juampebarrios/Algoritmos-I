@@ -74,7 +74,8 @@ public class Sistema implements IObligatorio {
             return new Retorno(Retorno.Resultado.ERROR_1);
         }
 
-        if (lm.existePacienteEnListaMedico(CI)) {
+        // CAMBIA PARA SEGUNDA ENTREGA YA QUE AHORA CONTAMOS CON CLASE RESERVA
+        if (lr.pacienteReservoAlgunaVez(CI)) {
             return new Retorno(Retorno.Resultado.ERROR_2);
         }
 
@@ -139,11 +140,11 @@ public class Sistema implements IObligatorio {
         }
         
         NodoReserva reserva = lr.obtenerReserva(codMedico, CIPaciente);
-        if(reserva == null || !reserva.getFecha().equals(today) ){
+        if(reserva == null || !reserva.getFecha().toString().equals(today.toString()) ){
             return new Retorno(Retorno.Resultado.ERROR_2);
         }
         
-        System.out.println("Medico: " + medico.getNombre() + " Numero reserva: " + reserva.getId());
+        System.out.println("Médico: " + medico.getNombre() + " - Numero de reserva: " + reserva.getId());
         reserva.setEstado("en espera");
         
         return new Retorno(Retorno.Resultado.OK);
@@ -176,7 +177,7 @@ public class Sistema implements IObligatorio {
         if(medico == null){
             return new Retorno(Retorno.Resultado.ERROR_1);
         }
-        if(reserva == null || !reserva.getFecha().equals(fechaConsulta)){
+        if(reserva == null || !reserva.getFecha().toString().equals(fechaConsulta.toString())){
            return new Retorno(Retorno.Resultado.ERROR_2); 
         }
         

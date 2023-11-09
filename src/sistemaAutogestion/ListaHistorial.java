@@ -78,7 +78,7 @@ public class ListaHistorial implements IListaHistorial{
     // METODOS AUX
     public void listarRecursivo(NodoHistorial aux){        
         if(aux != null){
-            System.out.println("Detalles: " + aux.getDetalles() + " Medico: " + aux.getDetalles());
+            System.out.println("Detalles: " + aux.getDetalles() + " - Médico: " + aux.getCodMedico());
             listarRecursivo(aux.getSiguiente());
         }
     }

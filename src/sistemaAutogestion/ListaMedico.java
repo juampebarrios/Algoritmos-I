@@ -130,6 +130,7 @@ public class ListaMedico implements IListaMedico {
         return null;
     }
 
+    // YA NO SE USA, SE HABIA HECHO ASI PARA ENTREGA 1.
     public boolean existePacienteEnListaMedico(int CI) {
         NodoMedico aux = this.getInicio();
         while (aux != null) {

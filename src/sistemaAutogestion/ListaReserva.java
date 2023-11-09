@@ -111,7 +111,7 @@ public class ListaReserva implements IListaReserva{
         if (!this.esVacia()) {
             NodoReserva aux = this.getInicio();
             while (aux != null) {
-                if(aux.getCodMedico() == codMedico && aux.getFecha().equals(fecha) && aux.getEstado().equals("en espera")){
+                if(aux.getCodMedico() == codMedico && aux.getFecha().toString().equals(fecha.toString()) && aux.getEstado().equals("en espera")){
                     System.out.println("Paciente: " + aux.getCiPaciente() + " Medico: " + aux.getCodMedico());
                     isEmpty = false;
                 }
@@ -131,6 +131,19 @@ public class ListaReserva implements IListaReserva{
                 aux = aux.getSiguiente();
             }
         }
+    }
+
+    public boolean pacienteReservoAlgunaVez (int ciPaciente){
+        if (!this.esVacia()) {
+            NodoReserva aux = this.getInicio();
+            while (aux != null) {
+                if(aux.getCiPaciente() == ciPaciente){
+                    return true;
+                }
+                aux = aux.getSiguiente();
+            }
+        }
+        return false;
     }
 
 }
