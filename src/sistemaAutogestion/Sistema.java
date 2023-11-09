@@ -8,6 +8,7 @@ public class Sistema implements IObligatorio {
     ListaReserva lr;
     
     @Override
+    //2.1
     public Retorno crearSistemaDeAutogestion(int maxPacientesporMedico) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         lm = new ListaMedico();
@@ -17,6 +18,7 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
+    //2.2
     public Retorno registrarMedico(String nombre, int codMedico, int tel, int especialidad) {
         if (especialidad < 1 || especialidad > 20) {
             return new Retorno(Retorno.Resultado.ERROR_2);
@@ -33,6 +35,7 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
+    //2.3
     public Retorno eliminarMedico(int codMedico) {
         NodoMedico medico = lm.obtenerMedico(codMedico);
 
@@ -49,6 +52,7 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
+    //2.4
     public Retorno agregarPaciente(String nombre, int CI, String direccion) {
         NodoPaciente paciente = lp.obtenerPaciente(CI);
 
@@ -62,6 +66,7 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
+    //2.5
     public Retorno eliminarPaciente(int CI) {
         NodoPaciente paciente = lp.obtenerPaciente(CI);
 
@@ -78,6 +83,7 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
+    //2.6
     public Retorno reservaConsulta(int codMedico, int ciPaciente, Date fecha) {
         NodoPaciente paciente = lp.obtenerPaciente(ciPaciente);
         NodoMedico medico = lm.obtenerMedico(codMedico);
@@ -98,6 +104,7 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
+    //2.7
     public Retorno cancelarReserva(int codMedico, int ciPaciente) {
         NodoPaciente paciente = lp.obtenerPaciente(ciPaciente);
         NodoMedico medico = lm.obtenerMedico(codMedico);
@@ -121,6 +128,7 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
+    //2.8
     public Retorno anunciaLlegada(int codMedico, int CIPaciente) {
         Date today = new Date();
         NodoPaciente paciente = lp.obtenerPaciente(CIPaciente);
@@ -142,6 +150,7 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
+    //2.9
     public Retorno terminarConsultaMedicoPaciente(int CIPaciente, int codMedico, String detalleDeConsulta) {
         NodoPaciente paciente = lp.obtenerPaciente(CIPaciente);
         NodoReserva reserva = lr.obtenerReserva(codMedico, CIPaciente);
@@ -159,9 +168,10 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
-    public Retorno cerrarConsulta(int codMédico, int ciPaciente, Date fechaConsulta) {
-        NodoMedico medico = lm.obtenerMedico(codMédico);
-        NodoReserva reserva = lr.obtenerReserva(codMédico, ciPaciente);
+    //2.10
+    public Retorno cerrarConsulta(int codMedico, int ciPaciente, Date fechaConsulta) {
+        NodoMedico medico = lm.obtenerMedico(codMedico);
+        NodoReserva reserva = lr.obtenerReserva(codMedico, ciPaciente);
         
         if(medico == null){
             return new Retorno(Retorno.Resultado.ERROR_1);
@@ -171,12 +181,13 @@ public class Sistema implements IObligatorio {
         }
         
         reserva.setEstado("no asistio");
-        lp.obtenerPaciente(ciPaciente).lh.agregarInicio("No asistio", codMédico, fechaConsulta);
+        lp.obtenerPaciente(ciPaciente).lh.agregarInicio("No asistio", codMedico, fechaConsulta);
         
         return new Retorno(Retorno.Resultado.OK); 
     }
 
     @Override
+    //3.1
     public Retorno listarMédicos() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         lm.listar();
@@ -184,6 +195,7 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
+    //3.2
     public Retorno listarPacientes() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         lp.listar();
@@ -191,9 +203,10 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
-    public Retorno listarConsultas(int codMédico) {
-        if (lm.obtenerMedico(codMédico) == null) {
-            return new Retorno("Retorno.Resultado.ERROR_1");
+    //3.3
+    public Retorno listarConsultas(int codMedico) {
+        if (lm.obtenerMedico(codMedico) == null) {
+            return new Retorno(Retorno.Resultado.ERROR_1);
         }
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         lr.listar();
@@ -201,26 +214,30 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
-    public Retorno listarPacientesEnEspera(int codMédico, Date fecha) {
-        boolean isEmpty = lr.listarEnEspera(codMédico, fecha);
+    //3.4
+    public Retorno listarPacientesEnEspera(int codMedico, Date fecha) {
+        boolean isEmpty = lr.listarEnEspera(codMedico, fecha);
         if(isEmpty){
            return new Retorno(Retorno.Resultado.ERROR_1); 
         }
         
-        return new Retorno(Retorno.Resultado.OK); 
+        return new Retorno(Retorno.Resultado.OK);
     }
 
     @Override
+    //3.5
     public Retorno consultasPendientesPaciente(int CIPaciente) {
-        // Paciente no existe
-        if (lp.obtenerPaciente(CIPaciente) == null) {
+        NodoPaciente p = lp.obtenerPaciente(CIPaciente);
+        if (p == null) {
             return new Retorno(Retorno.Resultado.ERROR_1);
         }
 
         lr.listarPendientesPaciente(CIPaciente);
+        return new Retorno(Retorno.Resultado.OK);
     }
 
     @Override
+    //3.6
     public Retorno historiaClínicaPaciente(int ci) {
         NodoPaciente paciente = lp.obtenerPaciente(ci);
         if(paciente == null){

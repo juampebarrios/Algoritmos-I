@@ -121,4 +121,16 @@ public class ListaReserva implements IListaReserva{
         return isEmpty;
     }
 
+    public void listarPendientesPaciente(int ciPaciente){
+        if (!this.esVacia()) {
+            NodoReserva aux = this.getInicio();
+            while (aux != null) {
+                if(aux.getCiPaciente() == ciPaciente && aux.getEstado().equals("pendiente")){
+                    System.out.println("Medico: " + aux.getCodMedico() + " Fecha: " + aux.getFecha());
+                }
+                aux = aux.getSiguiente();
+            }
+        }
+    }
+
 }
