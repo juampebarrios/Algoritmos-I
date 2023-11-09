@@ -193,7 +193,7 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno listarConsultas(int codMédico) {
         if (lm.obtenerMedico(codMédico) == null) {
-            return new Retorno(Retorno.Resultado.ERROR_1);
+            return new Retorno("Retorno.Resultado.ERROR_1");
         }
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         lr.listar();
@@ -212,7 +212,12 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno consultasPendientesPaciente(int CIPaciente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Paciente no existe
+        if (lp.obtenerPaciente(CIPaciente) == null) {
+            return new Retorno(Retorno.Resultado.ERROR_1);
+        }
+
+        lr.listarPendientesPaciente(CIPaciente);
     }
 
     @Override

@@ -43,5 +43,8 @@ public class Main {
 
         //RESULTADO DE LA PRUEBA
         p.imprimirResultadosPrueba();
+
+        //LISTAR CONSULTAS/RESERVAS
+
     }
 }
