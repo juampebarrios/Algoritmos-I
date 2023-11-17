@@ -24,6 +24,7 @@ public interface IObligatorio {
     **************** GESTIÓN DE CONSULTAS **************************************
     */
       
+    public Retorno registrarDiaDeConsulta(int codMedico,Date fecha);
     //pre:      post:
     public Retorno reservaConsulta(int codMedico, int ciPaciente, Date fecha);
     //pre:      post:

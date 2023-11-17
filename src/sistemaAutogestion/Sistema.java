@@ -84,6 +84,20 @@ public class Sistema implements IObligatorio {
     }
 
     @Override
+    public Retorno registrarDiaDeConsulta(int codMedico,Date fecha){
+        NodoMedico medico = lm.obtenerMedico(codMedico);
+        if(medico == null){
+           return new Retorno(Retorno.Resultado.ERROR_1); 
+        }
+        if(medico.getLf().tieneFecha(fecha)){
+            return new Retorno(Retorno.Resultado.ERROR_2);
+        }
+        
+        medico.getLf().agregarInicio(fecha);
+        return new Retorno(Retorno.Resultado.OK);
+    };
+            
+    @Override
     //2.6
     public Retorno reservaConsulta(int codMedico, int ciPaciente, Date fecha) {
         NodoPaciente paciente = lp.obtenerPaciente(ciPaciente);
@@ -98,6 +112,9 @@ public class Sistema implements IObligatorio {
         }
         if(reserva != null){
             return new Retorno(Retorno.Resultado.ERROR_3);
+        }
+        if(!medico.getLf().tieneFecha(fecha)){
+            return new Retorno(Retorno.Resultado.ERROR_4);
         }
         
         lr.agregarInicio(codMedico, ciPaciente, fecha);
@@ -131,7 +148,6 @@ public class Sistema implements IObligatorio {
     @Override
     //2.8
     public Retorno anunciaLlegada(int codMedico, int CIPaciente) {
-        Date today = new Date();
         NodoPaciente paciente = lp.obtenerPaciente(CIPaciente);
         NodoMedico medico = lm.obtenerMedico(codMedico);
         
@@ -140,7 +156,7 @@ public class Sistema implements IObligatorio {
         }
         
         NodoReserva reserva = lr.obtenerReserva(codMedico, CIPaciente);
-        if(reserva == null || !reserva.getFecha().toString().equals(today.toString()) ){
+        if(reserva == null || !medico.getLf().tieneFecha(reserva.getFecha()) ){
             return new Retorno(Retorno.Resultado.ERROR_2);
         }
         

@@ -1,11 +1,14 @@
 package sistemaAutogestion;
 
+import java.util.Date;
+
 public class NodoMedico {
     String nombre;
     int codMedico;
     int tel;
     int especialidad;
     ListaPaciente lp;
+    ListaFecha lf;
     NodoMedico siguiente;
 
 
@@ -16,6 +19,7 @@ public class NodoMedico {
         this.tel = tel;
         this.especialidad = especialidad;
         this.lp = new ListaPaciente();
+        this.lf = new ListaFecha();
         this.siguiente = null;
     }
 
@@ -67,5 +71,15 @@ public class NodoMedico {
     public void setSiguiente(NodoMedico siguiente) {
         this.siguiente = siguiente;
     }
+
+    public ListaFecha getLf() {
+        return lf;
+    }
+
+    public void setLf(ListaFecha lf) {
+        this.lf = lf;
+    }
+    
+    
 
 }

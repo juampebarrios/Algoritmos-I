@@ -2,33 +2,30 @@ package sistemaAutogestion;
 
 import java.util.Date;
 
-public class ListaHistorial implements IListaHistorial{
-    NodoHistorial inicio;
-    NodoHistorial ultimo;
+public class ListaFecha implements IListaFecha {
+    NodoFecha inicio;
+    NodoFecha ultimo;
     int cantNodos;
     
-    // CONSTRUCTOR
-    public ListaHistorial(){
+    public ListaFecha(){
         this.inicio = null;
         this.ultimo = null;
         this.cantNodos = 0;
     }
-    
-    // GETTER Y SETTERS
 
-    public NodoHistorial getInicio() {
+    public NodoFecha getInicio() {
         return inicio;
     }
 
-    public void setInicio(NodoHistorial inicio) {
+    public void setInicio(NodoFecha inicio) {
         this.inicio = inicio;
     }
 
-    public NodoHistorial getUltimo() {
+    public NodoFecha getUltimo() {
         return ultimo;
     }
 
-    public void setUltimo(NodoHistorial ultimo) {
+    public void setUltimo(NodoFecha ultimo) {
         this.ultimo = ultimo;
     }
 
@@ -41,14 +38,16 @@ public class ListaHistorial implements IListaHistorial{
     }
     
     
+    
+    
     @Override
     public boolean esVacia() {
         return (this.getInicio() == null);
     }
 
     @Override
-    public void agregarInicio(String detalles, int codMedico, Date fecha) {
-        NodoHistorial nuevo = new NodoHistorial(detalles, codMedico, fecha, this.cantNodos);
+    public void agregarInicio(Date fecha) {
+        NodoFecha nuevo = new NodoFecha(fecha);
         if (this.esVacia()) {
             this.setInicio(nuevo);
             this.setUltimo(nuevo);
@@ -56,15 +55,15 @@ public class ListaHistorial implements IListaHistorial{
             nuevo.setSiguiente(this.getInicio());
             this.setInicio(nuevo);
         }
-        this.cantNodos++;
+        this.cantNodos++;    
     }
 
     @Override
     public void listar() {
         if (!this.esVacia()) {
-            NodoHistorial aux = this.getInicio();
+            NodoFecha aux = this.getInicio();
             while (aux != null) {
-                System.out.println("Medico: " + aux.getCodMedico() + " Detalles: " + aux.getDetalles() + " Fecha: " + aux.getFecha());
+                System.out.println("Fecha: " + aux.getFecha());
                 aux = aux.getSiguiente();
             }
         }
@@ -72,14 +71,18 @@ public class ListaHistorial implements IListaHistorial{
 
     @Override
     public int cantidad() {
-        return this.cantNodos;
+        return this.getCantNodos();
     }
     
-    // METODOS AUX
-    public void listarRecursivo(NodoHistorial aux){        
-        if(aux != null){
-            System.out.println("Detalles: " + aux.getDetalles() + " - Médico: " + aux.getCodMedico());
-            listarRecursivo(aux.getSiguiente());
+    public boolean tieneFecha(Date fecha){        
+        NodoFecha aux = this.getInicio();
+        while(aux != null){
+            if(aux.getFecha().equals(fecha)){
+                return true;
+            }
+            aux = aux.getSiguiente();
         }
+        return false;
     }
+    
 }
