@@ -153,4 +153,18 @@ public class ListaMedico implements IListaMedico {
         }
         return null;
     }
+    
+    public ListaMedico obtenerMedicosPorEspecialidad(int especialidad){
+        ListaMedico lista = new ListaMedico();
+        
+        NodoMedico aux = this.getInicio();
+        while (aux != null){
+            if(aux.getEspecialidad() == especialidad){
+                lista.agregarInicio(aux.getNombre(), aux.getCodMedico(), aux.getTel(), especialidad);
+            }
+            aux = aux.getSiguiente();
+        }
+        
+        return lista;
+    }
 }

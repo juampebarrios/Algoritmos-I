@@ -282,7 +282,7 @@ public class Sistema implements IObligatorio {
         for (int i = 1; i <= 31; i++) {
             for (int j = 1; j < 20; j++) {
                 System.out.print("Dia " + i + "/" + mes + " - Especialidad " + j + ":"+ "\t");
-                System.out.print(lr.obtenerCantidadPacienteXDia(i, año, j) + "\t");
+                System.out.print(lr.obtenerCantidadPacienteXDia(i, año, j, lm) + "\t");
             }
             System.out.println();
         }
