@@ -6,14 +6,20 @@ public class Sistema implements IObligatorio {
     ListaMedico lm;
     ListaPaciente lp;
     ListaReserva lr;
+    public int maxPacientesporMedico;
     
     @Override
     //2.1
     public Retorno crearSistemaDeAutogestion(int maxPacientesporMedico) {
+        if(maxPacientesporMedico > 15){
+            return new Retorno(Retorno.Resultado.ERROR_1);
+        }
+        
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         lm = new ListaMedico();
         lp = new ListaPaciente();
         lr = new ListaReserva();
+        this.maxPacientesporMedico = maxPacientesporMedico;
         return ret;
     }
 
@@ -110,12 +116,13 @@ public class Sistema implements IObligatorio {
         if(medico == null){
             return new Retorno(Retorno.Resultado.ERROR_2);
         }
-        if(reserva != null){
-            return new Retorno(Retorno.Resultado.ERROR_3);
-        }
         if(!medico.getLf().tieneFecha(fecha)){
             return new Retorno(Retorno.Resultado.ERROR_4);
         }
+        if(reserva != null){
+            return new Retorno(Retorno.Resultado.ERROR_3);
+        }
+        
         
         lr.agregarInicio(codMedico, ciPaciente, fecha);
         return new Retorno(Retorno.Resultado.OK);
@@ -232,7 +239,7 @@ public class Sistema implements IObligatorio {
         ret.setValorString("Lista de consultas generada con éxito.");
         return ret;
     }
-
+    
     @Override
     //3.4
     public Retorno listarPacientesEnEspera(int codMedico, Date fecha) {
@@ -289,4 +296,35 @@ public class Sistema implements IObligatorio {
 
         return new Retorno(Retorno.Resultado.OK);
     }
+
+    @Override
+    public Retorno medicoConMasReservas() {
+        NodoMedico medicoMasReservas = null;
+        int cantidad = 0;
+        
+        if(!lm.esVacia()){
+            NodoMedico aux = lm.getInicio();
+            while (aux != null){
+                int cantidadAux = lr.obtenerCantidadReservas(aux.getCodMedico());
+                if(cantidadAux > cantidad){
+                    medicoMasReservas = aux;
+                    cantidad = cantidadAux;
+                }
+                aux = aux.getSiguiente();
+            }
+            System.out.println("El medico con mas reservas es: " + aux.getNombre() + " con la cantidad: " + cantidad);
+        }
+        
+        return new Retorno(Retorno.Resultado.OK);
+    }
+
+    @Override
+    public Retorno listaConsultasNoAsistidas(int codMedico) {
+        lr.obtenerConsultasNoAsistidas(codMedico);
+        
+        return new Retorno(Retorno.Resultado.OK);
+    }
+
+                                                          
+
 }

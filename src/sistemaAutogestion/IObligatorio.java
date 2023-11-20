@@ -55,5 +55,13 @@ public interface IObligatorio {
     public Retorno historiaClínicaPaciente (int ci);    
     //pre:      post:
     public Retorno reporteDePacientesXFechaYEspecialidad(int mes, int año); 
-     
+    
+    
+    //    pre: existe al menos un médico registrado. No existen dos médicos con el mismo máximo de reservas								
+    //post: Muestra el nombre del médico que tiene el máximo de reservas (en cualquiera de sus estados).								
+    public Retorno medicoConMasReservas();    
+
+//    pre: ci es un número entero > 0								
+//    post: Muestra únicamente las consultas a las que "no asistió" el médico.								
+    public Retorno listaConsultasNoAsistidas(int codMedico);								
 }

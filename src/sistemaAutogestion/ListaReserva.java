@@ -173,4 +173,27 @@ public class ListaReserva implements IListaReserva{
         
         return cantidadReservas;
     }
+
+    public int obtenerCantidadReservas(int codMedico){
+        int cantidad = 0;
+        NodoReserva aux = this.getInicio();
+        while(aux != null){
+            if(aux.getCodMedico() == codMedico){
+                cantidad++;
+            }
+            aux = aux.getSiguiente();
+        }
+        
+        return cantidad;
+    }
+
+    public void obtenerConsultasNoAsistidas(int codMedico){
+        NodoReserva aux = this.getInicio();
+        while(aux != null){
+            if(aux.getCodMedico() == codMedico && aux.getEstado().equals("no asistio")){
+                System.out.println("Paciente: " + aux.getCiPaciente() + " Fecha: " + aux.getFecha());
+            }
+            aux = aux.getSiguiente();
+        }
+    }
 }

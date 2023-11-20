@@ -10,212 +10,159 @@ public class Main {
         juegodeprueba(s, p);
     }
 
-        public static void juegodeprueba(Sistema o, Prueba p) {
-
-        //JUEGOS DE PRUEBA:
-
-        //crearSistemaDeAutogestion
-        System.out.println("------------------------");
-        System.out.println("CREACION DEL SISTEMA ");
-        System.out.println("------------------------");
-        p.ver(o.crearSistemaDeAutogestion(2).resultado, Retorno.Resultado.OK, "crearSistemaDeAutogestion(3) = Se pudo inicializar el sistema correctamente."); //CUMPLE CONDICION
-        p.ver(o.crearSistemaDeAutogestion(20).resultado, Retorno.Resultado.ERROR_1, "crearSistemaDeAutogestion(20) = La cantidad maxima de pacientes no puede ser <=0 o > 15"); //NO CUMPLE CONDICION
-        p.ver(o.crearSistemaDeAutogestion(-1).resultado, Retorno.Resultado.ERROR_1, "crearSistemaDeAutogestion(-1) = La cantidad maxima de pacientes no puede ser <=0 o > 15"); //NO CUMPLE CONDICION
-
-        //registrarMedico
-        System.out.println("------------------------");
-        System.out.println("REGISTRAR MEDICO ");
-        System.out.println("------------------------");
+      public static void juegodeprueba (Sistema s,Prueba p){
         
-        //CASOS OK
-        p.ver(o.registrarMedico("Juan", 12, 1234, 2).resultado, Retorno.Resultado.OK, "registrarMedico(Juan, 12,1234,2) = Se pudo registrar el medico"); //PUEDE REGISTRARSE
-        p.ver(o.listarMédicos().resultado, Retorno.Resultado.OK, "listarmedicos() = " + o.listarMédicos().valorString);
+          // CREAR SISTEMA
+        p.ver(s.crearSistemaDeAutogestion(12).resultado, Retorno.Resultado.OK, "Se crea sistema correctamente con " + s.maxPacientesporMedico + " pacientes por medico ");
 
-        p.ver(o.registrarMedico("Marcelo", 4, 8907, 10).resultado, Retorno.Resultado.OK, "registrarMedico(Marcelo,4,8907,10) = Se pudo registrar el medico"); //PUEDE REGISTRARSE
-        p.ver(o.listarMédicos().resultado, Retorno.Resultado.OK, "listarmedicos() = " + o.listarMédicos().valorString);
+        // NO SE CREA SISTEMA MAX DE PACIENTES POR MEDICO ES 12
+        p.ver(s.crearSistemaDeAutogestion(18).resultado, Retorno.Resultado.ERROR_1, "No se crea sitema con mas de 15 pacientes , se ingreso :  " + s.crearSistemaDeAutogestion(18).valorEntero);
 
-        p.ver(o.registrarMedico("Luis", 10, 2453, 12).resultado, Retorno.Resultado.OK, "registrarMedico(Luis,10,2453,12) = Se pudo registrar el medico"); //PUEDE REGISTRARSE
-        p.ver(o.listarMédicos().resultado, Retorno.Resultado.OK, "listarmedicos() = " + o.listarMédicos().valorString);
+        // REGISTRAR MEDICO
+        p.ver(s.registrarMedico("Jorge Rodirguez", 1, 27002397, 1).resultado, Retorno.Resultado.OK, "Se registra medico cod 1");
+        p.ver(s.registrarMedico("Zavier Gonzalez", 2, 29002375, 2).resultado, Retorno.Resultado.OK, "Se registra medico cod 2");
+        p.ver(s.registrarMedico("Juan Perez", 3, 24081508, 1).resultado, Retorno.Resultado.OK, "Se registra medico cod 3 ");
+        p.ver(s.registrarMedico("Jorge Iglesias", 4, 24841235, 4).resultado, Retorno.Resultado.OK, "Se registra medico cod 4");
+        p.ver(s.registrarMedico("Marcelo Tecehera", 5, 22923604, 5).resultado, Retorno.Resultado.OK, "Se registra medico cod 5 ");
+        p.ver(s.registrarMedico("Graciela Mendez", 6, 23641517, 4).resultado, Retorno.Resultado.OK, "Se registra medico cod 6");
+        p.ver(s.registrarMedico("Ana Lopez", 7, 47325442, 3).resultado, Retorno.Resultado.OK, "Se registra medico cod 7");
+        p.ver(s.registrarMedico("Anabelle Camarda", 8, 26007048, 6).resultado, Retorno.Resultado.OK, "Se registra medico cod 8");
+        p.ver(s.registrarMedico("Valentina Velazquez", 9, 22883704, 2).resultado, Retorno.Resultado.OK, "Se registra medico cod 9");
+        p.ver(s.registrarMedico("Raquel Sanchez", 10, 25112907, 2).resultado, Retorno.Resultado.OK, "Se registra medico cod 10");
 
-        p.ver(o.registrarMedico("Arnau", 17, 2267, 19).resultado, Retorno.Resultado.OK, "registrarMedico(Arnau,17,2267,19) = Se pudo registrar el medico"); //PUEDE REGISTRARSE
-        p.ver(o.listarMédicos().resultado, Retorno.Resultado.OK, "listarmedicos() = " + o.listarMédicos().valorString);
+        // No se registra medico mismo codigo
+        p.ver(s.registrarMedico("Raquel Sanchez", 10, 25112907, 2).resultado, Retorno.Resultado.ERROR_1, "No se registra medico por mismo codigo, ya existe");
+        // No se registra medico codigo especialidad <1 o > 20
+        p.ver(s.registrarMedico("Luis Diaz", 11, 25112907, 25).resultado, Retorno.Resultado.ERROR_2, "No se registra medico cod especialiad mayor 20");
+        p.ver(s.registrarMedico("Luis Diaz", 12, 25112907, 0).resultado, Retorno.Resultado.ERROR_2, "No se registra medico cod especialiad menor 1");
 
-        p.ver(o.registrarMedico("Andres", 5, 3675, 18).resultado, Retorno.Resultado.OK, "registrarMedico(Andres,5,3675,18) = Se pudo registrar el medico"); //PUEDE REGISTRARSE
-        p.ver(o.listarMédicos().resultado, Retorno.Resultado.OK, "listarmedicos() = " + o.listarMédicos().valorString);
+        // LISTAR MEDICOS ORDENADOS POR NOMBRE
+        p.ver(s.listarMédicos().resultado, Retorno.Resultado.OK, "Lista medicos");
 
-        // CASOS DE ERROR        
-        p.ver(o.registrarMedico("Juan", 12, 1234, 2).resultado, Retorno.Resultado.ERROR_1, "registrarMedico(Juan, 12,1234,2) = Ya existe un medico con igual codigo"); //YA EXISTE EL MEDICO
-        p.ver(o.listarMédicos().resultado, Retorno.Resultado.OK, "listarmedicos() = " + o.listarMédicos().valorString);
+        // AGREGAR PACIENTE
+        p.ver(s.agregarPaciente("Ramon Gonzalez", 39401257, "Rivera 1234").resultado, Retorno.Resultado.OK, "Se agrego paciente 39401257 ");
+        p.ver(s.agregarPaciente("Alicia Rodriguez", 16087234, "18 de Julio 3506").resultado, Retorno.Resultado.OK, "Se agrego paciente 16087234");
+        p.ver(s.agregarPaciente("Graciela Fernandez", 26085154, "Pernas 2708").resultado, Retorno.Resultado.OK, "Se agrego paciente 26085154");
+        p.ver(s.agregarPaciente("Gabriel Hernandez", 30081253, "Piovene 978").resultado, Retorno.Resultado.OK, "Se agrego paciente 30081253 ");
+        p.ver(s.agregarPaciente("Mariana Gutierrez", 55243662, "Uruguay 1079").resultado, Retorno.Resultado.OK, "Se agrego paciente 55243662");
+        p.ver(s.agregarPaciente("Zully Almada", 14241115, "Lieja 975").resultado, Retorno.Resultado.OK, "Se agrego paciente 14241115");
+        p.ver(s.agregarPaciente("Tatiana Morales", 63457890, "Colonia 1209").resultado, Retorno.Resultado.OK, "Se agrego paciente 63457890");
+        p.ver(s.agregarPaciente("Andres Benites", 47251872, "Andes 1503").resultado, Retorno.Resultado.OK, "Se agrego paciente 47251872");
+        p.ver(s.agregarPaciente("Paola Torres", 47081392, "Cuareim 1225").resultado, Retorno.Resultado.OK, "Se agrego paciente 47081392");
+        p.ver(s.agregarPaciente("Daniel Mareco", 27391573, "Artigas 1101").resultado, Retorno.Resultado.OK, "Se agrego paciente 27391573");
+        p.ver(s.agregarPaciente("Viginia Fleitas", 17391556, "25 de Mayo 1080").resultado, Retorno.Resultado.OK, "Se agrego paciente 17391556");
+        p.ver(s.agregarPaciente("Marcos Perez", 57391569, "Canelones 911").resultado, Retorno.Resultado.OK, "Se agrego paciente 57391569");
+        p.ver(s.agregarPaciente("Guillermo  Hernandez", 45481322, "Lieja 2504").resultado, Retorno.Resultado.OK, "Se agrego paciente 45481322");
+        p.ver(s.agregarPaciente("Elsa Romero", 6793111, "Luis A de Herrera 2532").resultado, Retorno.Resultado.OK, "Se agrego paciente 6793111");
+        p.ver(s.agregarPaciente("Daniela Castro", 47147254, "G.Viana 2504").resultado, Retorno.Resultado.OK, "Se agrego paciente 47147254");
+        p.ver(s.agregarPaciente("Julieta Alamda", 53239885, "Comercio 3694").resultado, Retorno.Resultado.OK, "Se agrego paciente 53239885");
+        p.ver(s.agregarPaciente("Nicolas Cozzo", 47365401, "Comercio 3694").resultado, Retorno.Resultado.OK, "Se agrego paciente 47365401");
+        p.ver(s.agregarPaciente("Patricia Perez", 39600572, "Comercio 3694").resultado, Retorno.Resultado.OK, "Se agrego paciente 39600572");
+        //No se agrega Paciente misma CI
+        p.ver(s.agregarPaciente("Manuel Gomez", 27391573, "25 de Agosto 1220").resultado, Retorno.Resultado.ERROR_1, "No se agrego paciente, ya existe en la lista");
 
-        p.ver(o.registrarMedico("Martin", 34, 6578, 0).resultado, Retorno.Resultado.ERROR_2, "registrarMedico(Martin, 34,6578,0) = La especialidad debe ser mayor >=1 o <=20"); //ESPECIALIDAD NO VALIDA
-        p.ver(o.listarMédicos().resultado, Retorno.Resultado.OK, "listarmedicos() = " + o.listarMédicos().valorString);
-//
-        System.out.println("------------------------");
-        System.out.println("ELIMINAR MEDICO ");
-        System.out.println("------------------------");       
+        //LISTAMOS PACIENTES         
+        p.ver(s.listarPacientes().resultado, Retorno.Resultado.OK, "Lista Pacientes");
+
+        // ELIMINAR MEDICO
+        p.ver(s.eliminarMedico(3).resultado, Retorno.Resultado.OK, " Se elimina medico nro 3");
+
+        //NO SE ELIMINA MEDICO, NO EXISTE CODIGO MEDICO
+        p.ver(s.eliminarMedico(12).resultado, Retorno.Resultado.ERROR_1, " No se puede eliminar Medico con codigo 12, no existe en la lista");
+
+        //LISTAMOS MEDICOS
+        p.ver(s.listarMédicos().resultado, Retorno.Resultado.OK, "Lista medicos");
+
+        // ELIMINAR PACIENTE
+        p.ver(s.eliminarPaciente(30081253).resultado, Retorno.Resultado.OK, " Se elimina paciente cedula 30081253");
+
+        //NO SE ELIMINA PACIENTE , NO EXISTE EN LA LISTA
+        p.ver(s.eliminarPaciente(11111111).resultado, Retorno.Resultado.ERROR_1, " No se elimina paciente de cedula 11111111, no existe en la lista");
+
+        //LISTAMOS PACIENTES         
+        p.ver(s.listarPacientes().resultado, Retorno.Resultado.OK, "Lista Pacientes");
+
+        //REGISTRAMOS DIAS DE CONSULTAS PARA LOS MEDICOS         
+        p.ver(s.registrarDiaDeConsulta(1, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se agrega fecha de consulta para medico");
+        p.ver(s.registrarDiaDeConsulta(2, new Date(2023, 11, 2)).resultado, Retorno.Resultado.OK, "Se agrega fecha de consulta para medico");
+        p.ver(s.registrarDiaDeConsulta(1, new Date(2023, 9, 21)).resultado, Retorno.Resultado.OK, "Se agrega fecha de consulta para medico");
+        p.ver(s.registrarDiaDeConsulta(1, new Date(2023, 11, 1)).resultado, Retorno.Resultado.ERROR_2, "Ya existe esa fecha para es codmedico");
+        p.ver(s.registrarDiaDeConsulta(13, new Date(2023, 11, 1)).resultado, Retorno.Resultado.ERROR_1, "Error No existe medico con codigo 13");
+        p.ver(s.registrarDiaDeConsulta(7, new Date(2023, 11, 3)).resultado, Retorno.Resultado.OK, "Se agrega fecha de consulta para medico");
+
+        //RESERVAMOS LAS CONSULTAS PARA LOS PACIENTES
+        p.ver(s.reservaConsulta(1, 47365401, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 47365401 ");
+        p.ver(s.reservaConsulta(7, 39401257, new Date(2023, 11, 3)).resultado, Retorno.Resultado.OK, "Se reservo paciente 39401257 C/MED 7");
+        p.ver(s.reservaConsulta(1, 39401257, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 39401257  ");
+        p.ver(s.reservaConsulta(1, 26085154, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 26085154");
+        p.ver(s.reservaConsulta(1, 63457890, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 63457890");
+        p.ver(s.reservaConsulta(1, 27391573, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 27391573");
+        p.ver(s.reservaConsulta(1, 47081392, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 47081392");
+        p.ver(s.reservaConsulta(1, 47251872, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 47251872");
+        p.ver(s.reservaConsulta(1, 14241115, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 14241115");
+        p.ver(s.reservaConsulta(1, 55243662, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 55243662");
+        p.ver(s.reservaConsulta(1, 16087234, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 16087234");
+        p.ver(s.reservaConsulta(1, 17391556, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 17391556");
+        p.ver(s.reservaConsulta(1, 6793111, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 6793111");
+        p.ver(s.reservaConsulta(1, 57391569, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 57391569 ");
+        p.ver(s.reservaConsulta(1, 39600572, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Se reservo paciente 39600572");
+        p.ver(s.reservaConsulta(2, 39401257, new Date(2023, 11, 2)).resultado, Retorno.Resultado.OK, "Se reservo paciente 39401257 COD MED 2");
+
+       // Intentamos hacer resevar probado errores
+        p.ver(s.reservaConsulta(3, 22222222, new Date(2023, 11, 15)).resultado, Retorno.Resultado.ERROR_1, " No se reservo no existe paciente de ci 22222222");
+        p.ver(s.reservaConsulta(24, 26085154, new Date(2023, 11, 1)).resultado, Retorno.Resultado.ERROR_2, "No se reservo no existe medico de codigo 24");
+        p.ver(s.reservaConsulta(1, 27391573, new Date(2023, 11, 15)).resultado, Retorno.Resultado.ERROR_4, " No se reservo paciente 27391573, no hay fecha para esemedico");
+        p.ver(s.reservaConsulta(1, 26085154, new Date(2023, 11, 1)).resultado, Retorno.Resultado.ERROR_3, "No se pudo agregar consulta, paciente ya tiene consulta con ese medico");
+
+
+        //SE PRUEBA ELIMINAR PACIENTE QUE TIENE RESERVA   
+        p.ver(s.eliminarPaciente(26085154).resultado, Retorno.Resultado.ERROR_2, "No se elimina paciente tiene reserva");
+
+        //LISTAMOS PACIENTES         
+        p.ver(s.listarPacientes().resultado, Retorno.Resultado.OK, "Lista Pacientes");
+
+
+        //LISTAMOS LAS RESERVAS DE CONSULTAS PARA MEDICO codigo 1
+        p.ver(s.listarConsultas(1).resultado, Retorno.Resultado.OK, "Lista Reservas para Medico cod 1");
+
+        //LISTAMOS LAS RESERVAS DE CONSULTAS PARA MEDICO codiog 2
+        p.ver(s.listarConsultas(2).resultado, Retorno.Resultado.OK, "Lista Reservas para Medico cod 2");
+
+        //LISTAMOS LAS RESERVAS DE CONSULTAS PARA MEDICO codiog 7
+        p.ver(s.listarConsultas(7).resultado, Retorno.Resultado.OK, "Lista Reservas para Medico cod 7");
+
+        //CANCELAMOS UNA RESERVA
+        p.ver(s.cancelarReserva(1, 47081392).resultado, Retorno.Resultado.OK, "Se cancelo reserva para el paciente 47081392");
+               
+
+        //ANUCIAMOS LLEGADA A TOTEM
+        p.ver(s.anunciaLlegada(1, 14241115).resultado, Retorno.Resultado.OK, "Paciente : " + 14241115 + "anuncio llegada");
+        p.ver(s.anunciaLlegada(1, 47365401).resultado, Retorno.Resultado.OK, "Paciente : " + 47365401 + "anuncio llegada");
+        p.ver(s.anunciaLlegada(2, 39401257).resultado, Retorno.Resultado.OK, "Paciente : " + 39401257 + "anuncio llegada");
+
+        //LISTAMOS PACIENTES EN ESPERA PAR EL MEDICO 1
+        p.ver(s.listarPacientesEnEspera(1, new Date(2023, 11, 1)).resultado, Retorno.Resultado.OK, "Lista consultas en espera para codmedico 1");
+
+        //TERMINAMOS LA CONSULTA
+        p.ver(s.terminarConsultaMedicoPaciente(14241115, 1, "Asistio").resultado, Retorno.Resultado.OK, "Cerrado correctamnente para el paciente 14241115");
+        p.ver(s.terminarConsultaMedicoPaciente(47365401, 1, "Asistio").resultado, Retorno.Resultado.OK, "Cerrado correctamnente para el paciente 47365401");
+        p.ver(s.terminarConsultaMedicoPaciente(39401257, 2, "Asistio").resultado, Retorno.Resultado.OK, "Cerrado correctamnente para el paciente 39401257");
+
+        //CERRAMOS LA CONSULTAS PACIENTES QUE NO ASISTIERON PARA EL MEDICO 1
+//        p.ver(s.cerrarConsulta(1, new Date(123, 11, 1)).resultado, Retorno.Resultado.OK, "Consultas Cerradas(Pacientes que no asistieron) para medico 1 ");
+
+        //LISTAMOS CONSULTAS PENDIENTES PARA EL PACIENTE
+        p.ver(s.consultasPendientesPaciente(39401257).resultado, Retorno.Resultado.OK, "Consulta pendiente para paciente 39401257 ");
+
+        //MOSTRAMOS HISTORIA CLINICA DEL PACIENTE
+        p.ver(s.historiaClínicaPaciente(39401257).resultado, Retorno.Resultado.OK, "Historia Clinica de Paciente ci 39401257 ");
+
+        //MATRIZ REPORTE DE PACIENTE POR ESPECIALIDAD Y FECHA
+        p.ver(s.reporteDePacientesXFechaYEspecialidad(11, 2023).resultado, Retorno.Resultado.OK, "Matriz REPORTE DE PACIENTE POR ESPECIALIDAD Y FECHA");
         
-        //eliminarMedico
-        
-        //CASOS OK DE ELIMINACION
-        p.ver(o.eliminarMedico(12).resultado, Retorno.Resultado.OK, "eliminarMedico(12) = Se pudo eliminar el medico."); //ELIMINA MEDICO CON 0 PACIENTES
-        p.ver(o.eliminarMedico(5).resultado, Retorno.Resultado.OK, "eliminarMedico(5) = Se pudo eliminar el medico."); //ELIMINA MEDICO CON 0 PACIENTES
-             
-        //CASOS ERROR 1 ELIMINACION
-        p.ver(o.eliminarMedico(45).resultado, Retorno.Resultado.ERROR_1, "eliminarMedico(45) = No existe un medico con ese codigo."); //NO ENCUENTRA MEDICO
- 
- 
-        System.out.println("listado de medicos luego de eliminar medico 12, 5 y 45 ");
-        p.ver(o.listarMédicos().resultado, Retorno.Resultado.OK, "listarmedicos() = " + o.listarMédicos().valorString);
-
-        System.out.println("------------------------");
-        System.out.println("REGISTRAR PACIENTE ");
-        System.out.println("------------------------");        
-        
-        //agregarPaciente
-        // CASOS OK
-        p.ver(o.agregarPaciente("Jose", 52956338, "Bv Artigas").resultado, Retorno.Resultado.OK, "agregarPaciente(Jose, 52956338, Bv Artigas) = Se pudo crear el paciente"); //PUEDE AGREGAR PACIENTE
-        p.ver(o.agregarPaciente("Carlos", 12300874, "Minas").resultado, Retorno.Resultado.OK, "agregarPaciente(Carlos, 12300874, Minas) = Se pudo crear el paciente"); //PUEDE AGREGAR PACIENTE
-        p.ver(o.agregarPaciente("Roberto", 12312378, "Salterain").resultado, Retorno.Resultado.OK, "agregarPaciente(Roberto, 12312378, Salterain) = Se pudo crear el paciente"); //PUEDE AGREGAR PACIENTE
-        p.ver(o.agregarPaciente("Abel", 23232323, "Cerro Largo").resultado, Retorno.Resultado.OK, "agregarPaciente(Abel, 23232323, Cerro Largo) = Se pudo crear el paciente"); //PUEDE AGREGAR PACIENTE
-        p.ver(o.agregarPaciente("Franco", 79797979, "Lafinur").resultado, Retorno.Resultado.OK, "agregarPaciente(Franco, 79797979, Lafinur) = Se pudo crear el paciente"); //PUEDE AGREGAR PACIENTE
-        p.ver(o.agregarPaciente("Manuel", 34343434, "Union").resultado, Retorno.Resultado.OK, "agregarPaciente(Manuel, 34343434, Union) = Se pudo crear el paciente"); //PUEDE AGREGAR PACIENTE
-        p.ver(o.agregarPaciente("Luka", 12348765, "Cochabamba").resultado, Retorno.Resultado.OK, "agregarPaciente(Luka, 12348765, Cochabamba) = Se pudo crear el paciente"); //PUEDE AGREGAR PACIENTE
-
-        //CASOS ERROR_1
-        p.ver(o.agregarPaciente("Jose", 52956338, "Bv Artigas").resultado, Retorno.Resultado.ERROR_1, "agregarPaciente(Jose, 52956338, Bv Artigas) = Ya existe un paciente con igual CI"); //NO PUEDE AGREGARSE
-
-        //LISTADO LUEGO DE AGREGAR
-        System.out.println("Listado de pacientes luego de agregar");
-        p.ver(o.listarPacientes().resultado, Retorno.Resultado.OK, "listarPacientes() = " + o.listarPacientes().valorString);
-
-        //eliminarPaciente
-        p.ver(o.eliminarPaciente(52956338).resultado, Retorno.Resultado.OK, "eliminarPaciente(52956338) = Se pudo eliminar el paciente.");  //ELIMINA PACIENTE CON 0 CONSULTAS
-        p.ver(o.listarPacientes().resultado, Retorno.Resultado.OK, "listarPacientes() = " + o.listarPacientes().valorString);
-
-        p.ver(o.eliminarPaciente(12345678).resultado, Retorno.Resultado.ERROR_1, "eliminarPaciente(12345678) = No existe un paciente con ese CI");  //NO ENCUENTRA EL PACIENTE
-        p.ver(o.listarPacientes().resultado, Retorno.Resultado.OK, "listarPacientes() = " + o.listarPacientes().valorString);
-
-        Date fecha = new Date(123, 9, 18);
-        Date fecha2 = new Date(123, 9, 19); //LOS MESES EMPIEZAN EN 0 (OCTUBRE)
-        Date fecha3 = new Date(123, 9, 17);
-        Date fecha4 = new Date(123, 9, 1);
-        
-        
-        //REGISTRAR DIA DE CONSULTA
-        p.ver(o.registrarDiaDeConsulta(89, fecha).resultado, Retorno.Resultado.ERROR_1, "registrarDiaDeConsulta(89, 18/10/2023)= No existe medico con ese codigo"); //se registra el dia de la consulta
-        p.ver(o.registrarDiaDeConsulta(10, fecha).resultado, Retorno.Resultado.OK, "registrarDiaDeConsulta(10, 18/10/2023)= Se pudo registrar el dia de la consulta"); //se registra el dia de la consulta
-        p.ver(o.registrarDiaDeConsulta(10, fecha).resultado, Retorno.Resultado.ERROR_2, "registrarDiaDeConsulta(10, 18/10/2023)= ya existe registrada esa fecha para ese medico"); //ya existe la fecha para el medico
-        p.ver(o.registrarDiaDeConsulta(10, fecha2).resultado, Retorno.Resultado.OK, "registrarDiaDeConsulta(10, 19/10/2023)= Se pudo registrar el dia de la consulta"); //se registra el dia de la consulta
-        p.ver(o.registrarDiaDeConsulta(10, fecha3).resultado, Retorno.Resultado.OK, "registrarDiaDeConsulta(10, 17/10/2023)= Se pudo registrar el dia de la consulta"); //se registra el dia de la consulta
-        p.ver(o.registrarDiaDeConsulta(17, fecha3).resultado, Retorno.Resultado.OK, "registrarDiaDeConsulta(17, 17/10/2023)= Se pudo registrar el dia de la consulta"); //se registra el dia de la consulta
-        p.ver(o.registrarDiaDeConsulta(17, fecha4).resultado, Retorno.Resultado.OK, "registrarDiaDeConsulta(17, 01/10/2023)= Se pudo registrar el dia de la consulta"); //se registra el dia de la consulta
-
-        p.ver(o.reservaConsulta(89, 12300874, fecha).resultado, Retorno.Resultado.ERROR_2, "reservaConsulta(89, 12300874, 18/10/2023)= No existe medico con ese codigo"); //no existe ese medico
-        p.ver(o.listarConsultas(89).resultado, Retorno.Resultado.ERROR_1, "listarConsultas(89) = No existe medico con ese codigo");
-        p.ver(o.reservaConsulta(10, 12345678, fecha).resultado, Retorno.Resultado.ERROR_1, "reservaConsulta(10, 12345678, 18/10/2023)= No existe paciente con esa CI"); //no existe ese paciente
-        p.ver(o.listarConsultas(10).resultado, Retorno.Resultado.OK, "listarConsultas(10) = " + o.listarConsultas(10).valorString);
-        p.ver(o.listarPacientesEnEspera(10, fecha).resultado, Retorno.Resultado.ERROR_1, "listarPacientesEnEspera(10,18/10/2023) = El medico no tiene consultas en esa fecha"); //no hay pacientes en esa fecha
-        p.ver(o.reservaConsulta(10, 12300874, fecha4).resultado, Retorno.Resultado.ERROR_4, "reservaConsulta(10, 12300874, 01/10/2023)= El medico no tiene registrada esa fecha"); //la fecha no fue registada a ese medeico
-        p.ver(o.reservaConsulta(10, 12300874, fecha).resultado, Retorno.Resultado.OK, "reservaConsulta(10, 12300874, 18/10/2023)= Se realiza la apertura del pedido correctamente"); //se agrega paciente en fecha nueva
-        p.ver(o.listarConsultas(10).resultado, Retorno.Resultado.OK, "listarConsultas(10) = " + o.listarConsultas(10).valorString);
-        p.ver(o.listarPacientesEnEspera(10, fecha).resultado, Retorno.Resultado.OK, "listarPacientesEnEspera(10,18/10/2023) = " + o.listarPacientesEnEspera(10, fecha).valorString); //no hay ningun paciente en espera
-        p.ver(o.reservaConsulta(10, 12300874, fecha).resultado, Retorno.Resultado.ERROR_3, "reservaConsulta(10, 12300874, 18/10/2023)= El medico ya tiene una consulta con ese paciente"); //ya esta el paciente en esa fecha
-        p.ver(o.listarConsultas(10).resultado, Retorno.Resultado.OK, "listarConsultas(10) = " + o.listarConsultas(10).valorString);
-
-        p.ver(o.anunciaLlegada(10, 12312378).resultado, Retorno.Resultado.ERROR_2, "anunciaLlegada(10, 12312378)= El paciente no tiene registrada una consulta");  //el paciente no tiene consulta registrada
-
-        p.ver(o.reservaConsulta(10, 12312378, fecha).resultado, Retorno.Resultado.OK, "reservaConsulta(10, 12312378, 18/10/2023)= Se realiza la apertura del pedido correctamente ");  //se agrega paciente en misma fecha
-        p.ver(o.listarConsultas(10).resultado, Retorno.Resultado.OK, "listarConsultas(10) = " + o.listarConsultas(10).valorString);
-
-        p.ver(o.anunciaLlegada(10, 56565656).resultado, Retorno.Resultado.ERROR_1, "anunciaLlegada(10, 56565656)= No existe la ci del paciente ");  //no existe el paciente
-
-        p.ver(o.anunciaLlegada(10, 12312378).resultado, Retorno.Resultado.OK, "anunciaLlegada(10, 12312378)= El paciente pudo anunciar su llegada ");  //el paciente llega en esa fecha
-        p.ver(o.listarPacientesEnEspera(10, fecha).resultado, Retorno.Resultado.OK, "listarPacientesEnEspera(10,18/10/2023) = " + o.listarPacientesEnEspera(10, fecha).valorString); //lista pacientes en espera
-        p.ver(o.listarConsultas(10).resultado, Retorno.Resultado.OK, "listarConsultas(10) = " + o.listarConsultas(10).valorString);
-
-        p.ver(o.reservaConsulta(10, 34343434, fecha).resultado, Retorno.Resultado.OK, "reservaConsulta(10, 34343434, 18/10/2023)= Se agrega paciente en lista de espera ");  //agregar otro paciente en lista de espera, excede tope
-        p.ver(o.listarConsultas(10).resultado, Retorno.Resultado.OK, "listarConsultas(10) = " + o.listarConsultas(10).valorString);
-
-        p.ver(o.reservaConsulta(10, 23232323, fecha2).resultado, Retorno.Resultado.OK, "reservaConsulta(10, 23232323, 19/10/2023)= Se realiza la apertura del pedido correctamente");  //agregar otro paciente en fecha despues
-        p.ver(o.listarConsultas(10).resultado, Retorno.Resultado.OK, "listarConsultas(10) = " + o.listarConsultas(10).valorString);
-
-        p.ver(o.consultasPendientesPaciente(98765432).resultado, Retorno.Resultado.ERROR_1, "consultasPendientesPaciente(98765432) = No existe la ci del paciente");
-
-        p.ver(o.consultasPendientesPaciente(79797979).resultado, Retorno.Resultado.OK, "consultasPendientesPaciente(79797979) = " + o.consultasPendientesPaciente(79797979).valorString);
-        
-        p.ver(o.reservaConsulta(10, 79797979, fecha3).resultado, Retorno.Resultado.OK, "reservaConsulta(10, 23232323, 17/10/2023)= Se realiza la apertura del pedido correctamente");  //agregar otro paciente en fecha anterior
-        p.ver(o.listarConsultas(10).resultado, Retorno.Resultado.OK, "listarConsultas(10) = " + o.listarConsultas(10).valorString);
-
-        p.ver(o.cancelarReserva(10, 56565656).resultado, Retorno.Resultado.ERROR_1, "cancelarReserva(10,56565656)= No existe paciente con esa ci");  //no existe paciente con esa ci
-
-        p.ver(o.cancelarReserva(89, 12300874).resultado, Retorno.Resultado.ERROR_2, "cancelarReserva(89,12300874)= No existe el codigo del medico");  //no existe medico con ese codigo
-
-        p.ver(o.cancelarReserva(10, 12312378).resultado, Retorno.Resultado.ERROR_4, "cancelarReserva(10,12312378)= la reserva de ese paciente no esta en estado pendeinte");  //consulta no en estado pendiente
-
-        p.ver(o.cancelarReserva(10, 12348765).resultado, Retorno.Resultado.ERROR_3, "cancelarReserva(10,12348765)= el paciente no tiene una reserva con el medico");  //el paciente no tiene una consulta con el medico
-
-        p.ver(o.cancelarReserva(10, 12300874).resultado, Retorno.Resultado.OK, "cancelarReserva(10,12300874)= se puedo cancelar la reserva del paciente");  //consulta no en estado pendiente
-        p.ver(o.listarConsultas(10).resultado, Retorno.Resultado.OK, "listarConsultas(10) = " + o.listarConsultas(10).valorString);
-
-        p.ver(o.reservaConsulta(17, 79797979, fecha3).resultado, Retorno.Resultado.OK, "reservaConsulta(17, 79797979, 17/10/2023)= Se realiza la apertura del pedido correctamente");  //agregar otro paciente en fecha anterior
-        p.ver(o.listarConsultas(17).resultado, Retorno.Resultado.OK, "listarConsultas(17) = " + o.listarConsultas(17).valorString);
-
-        p.ver(o.consultasPendientesPaciente(79797979).resultado, Retorno.Resultado.OK, "consultasPendientesPaciente(79797979) = " + o.consultasPendientesPaciente(79797979).valorString);
-        
-        
-        p.ver(o.reservaConsulta(17, 23232323, fecha3).resultado, Retorno.Resultado.OK, "reservaConsulta(17, 23232323, 17/10/2023)= Se realiza la apertura del pedido correctamente");  //agregar otro paciente en fecha anterior
-        p.ver(o.listarConsultas(17).resultado, Retorno.Resultado.OK, "listarConsultas(17) = " + o.listarConsultas(17).valorString);
-
-        p.ver(o.reservaConsulta(17, 12312378, fecha3).resultado, Retorno.Resultado.OK, "reservaConsulta(17, 12312378, 17/10/2023)= Se agrega paciente en lista de espera");  //agregar otro paciente en lista de espera, excede tope
-        p.ver(o.listarConsultas(17).resultado, Retorno.Resultado.OK, "listarConsultas(17) = " + o.listarConsultas(17).valorString);
-
-        p.ver(o.terminarConsultaMedicoPaciente(98765432, 17, "traumatismo de pierna").resultado, Retorno.Resultado.ERROR_1, "terminarConsultaMedicoPaciente(98765432,17,traumatismo de pierna)= No existe la ci del paciente");  //no existe la ci del paciente
-
-        p.ver(o.terminarConsultaMedicoPaciente(23232323, 17, "traumatismo de pierna").resultado, Retorno.Resultado.ERROR_2, "terminarConsultaMedicoPaciente(23232323,17,traumatismo de pierna)= paciente no tiene una consulta en espera en ese dia con ese medico");  //el paciente no tiene una consulta en espera en ese dia con ese medico
-
-        p.ver(o.anunciaLlegada(17, 23232323).resultado, Retorno.Resultado.OK, "anunciaLlegada(17, 23232323)= El paciente pudo anunciar su llegada ");  //el paciente llega en esa fecha
-        p.ver(o.listarConsultas(17).resultado, Retorno.Resultado.OK, "listarConsultas(17) = " + o.listarConsultas(17).valorString);
-
-        p.ver(o.terminarConsultaMedicoPaciente(23232323, 17, "traumatismo de pierna").resultado, Retorno.Resultado.OK, "terminarConsultaMedicoPaciente(23232323,17,traumatismo de pierna)= Se pudo cerrar correctamente la consulta del paciente");  //se cierra consulta correctamente
-        p.ver(o.listarConsultas(17).resultado, Retorno.Resultado.OK, "listarConsultas(17) = " + o.listarConsultas(17).valorString);
-
-        p.ver(o.historiaClínicaPaciente(23232323).resultado, Retorno.Resultado.OK, "historiaClinicaPaciente(98765432) = " + o.historiaClínicaPaciente(23232323).valorString);
-
-        p.ver(o.historiaClínicaPaciente(98765432).resultado, Retorno.Resultado.ERROR_1, "historiaClinicaPaciente(98765432) = No existe la ci del paciente"); //no existe la ci del paciente
-
-//        p.ver(o.cerrarConsulta(89, fecha3).resultado, Retorno.Resultado.ERROR_1, "cerrarConsulta(89, 17/10/2023)= No existe el codigo del medico");  //no existe el codigo del medico
-
-//        p.ver(o.cerrarConsulta(17, fecha4).resultado, Retorno.Resultado.ERROR_2, "cerrarConsulta(17, 01/10/2023)= El medico no tiene consultas en esa fecha");  //el medico no tiene consultas en esa fecha
-
-//        p.ver(o.cerrarConsulta(17, fecha3).resultado, Retorno.Resultado.OK, "cerrarConsulta(17, 17/10/2023)= Se pudo cerrar las consultas correctamente");  //se puden cerrar las consultas del dia
-        p.ver(o.listarConsultas(17).resultado, Retorno.Resultado.OK, "listarConsultas(17) = " + o.listarConsultas(17).valorString);
-
-        p.ver(o.historiaClínicaPaciente(79797979).resultado, Retorno.Resultado.OK, "historiaClinicaPaciente(79797979) = " + o.historiaClínicaPaciente(79797979).valorString);
-
-        
-        p.ver(o.reservaConsulta(17, 12300874, fecha4).resultado, Retorno.Resultado.OK, "reservaConsulta(17, 12300874, 01/10/2023)= Se realiza la apertura del pedido correctamente");  //agregar otro paciente en fecha anterior
-        p.ver(o.listarConsultas(17).resultado, Retorno.Resultado.OK, "listarConsultas(17) = " + o.listarConsultas(17).valorString);
-
-        p.ver(o.anunciaLlegada(17, 12300874).resultado, Retorno.Resultado.OK, "anunciaLlegada(17, 12300874)= El paciente pudo anunciar su llegada ");  //el paciente llega en esa fecha
-
-        p.ver(o.terminarConsultaMedicoPaciente(12300874, 17, "dolor de cabeza").resultado, Retorno.Resultado.OK, "terminarConsultaMedicoPaciente(12300874, 17,dolor de cabeza)= Se pudo cerrar correctamente la consulta del paciente");  //se cierra consulta correctamente
-        p.ver(o.listarConsultas(17).resultado, Retorno.Resultado.OK, "listarConsultas(17) = " + o.listarConsultas(17).valorString);
-
-        p.ver(o.historiaClínicaPaciente(12300874).resultado, Retorno.Resultado.OK, "historiaClinicaPaciente(12300874) = " + o.historiaClínicaPaciente(12300874).valorString);
-
-        p.ver(o.reporteDePacientesXFechaYEspecialidad(13, 2021).resultado, Retorno.Resultado.ERROR_1,"reporteDePacientesXFechaYEspecialidad(13, 2021) = El mes debe ser <= 12 o mayor a 0" );
-//        
-        p.ver(o.reporteDePacientesXFechaYEspecialidad(13, 2025).resultado, Retorno.Resultado.ERROR_1,"reporteDePacientesXFechaYEspecialidad(13, 2025) = El anio debe ser entre 2020 y 2023 " );
-//
-        p.ver(o.reporteDePacientesXFechaYEspecialidad(10, 2023).resultado, Retorno.Resultado.OK,"reporteDePacientesXFechaYEspecialidad(10, 2023) =  "+o.reporteDePacientesXFechaYEspecialidad(10, 2023).valorString);
-
-        p.ver(o.eliminarMedico(10).resultado, Retorno.Resultado.ERROR_2, "eliminarMedico(10) = No se puede eliminar un medico con consultas."); //NO ELIMINA MEDICO POR QUE TIENE CONSULTAS
-        p.ver(o.listarMédicos().resultado, Retorno.Resultado.OK, "listarmedicos() = " + o.listarMédicos().valorString);
-        
-        p.ver(o.eliminarPaciente(12300874).resultado, Retorno.Resultado.ERROR_2, "eliminarPaciente(12300874) = No se puede eliminar un paciente que esta registrado a una consulta.");  //NO ELIMINA PACIENTE PORQUE ESTA AGENDADO EN CONSULTA
-        p.ver(o.listarPacientes().resultado, Retorno.Resultado.OK, "listarPacientes() = " + o.listarPacientes().valorString);
-
-        //cantidad de pruebas con resultados
+  
         p.imprimirResultadosPrueba();
-        }
+    }
+    
+    
 }
