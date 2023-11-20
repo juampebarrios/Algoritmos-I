@@ -1,5 +1,5 @@
 package sistemaAutogestion;
-
+import java.util.Calendar;
 import java.util.Date;
 
 public class ListaReserva implements IListaReserva{
@@ -145,5 +145,31 @@ public class ListaReserva implements IListaReserva{
         }
         return false;
     }
+    
+    public int obtenerCantidadPacienteXDia(int dia, int año, int codEspecialidad) {
+        int cantidadReservas = 0;
 
+        if (!this.esVacia()) {
+            NodoReserva aux = this.getInicio();
+            Calendar calendar = Calendar.getInstance();
+
+            while (aux != null) {
+                // Configurar el calendario con la fecha de la reserva actual
+                calendar.setTime(aux.getFecha());
+
+                // Obtener el año y el día de la reserva actual
+                int añoReserva = calendar.get(Calendar.YEAR);
+                int diaReserva = calendar.get(Calendar.DAY_OF_MONTH);
+                
+                // Verificar si la reserva es del año y día especificados
+                if (añoReserva == año && diaReserva == dia) {
+                    cantidadReservas++;
+                }
+
+                aux = aux.getSiguiente();
+            }
+        }
+        
+        return cantidadReservas;
+    }
 }

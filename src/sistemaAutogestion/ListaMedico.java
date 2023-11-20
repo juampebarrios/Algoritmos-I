@@ -142,4 +142,15 @@ public class ListaMedico implements IListaMedico {
         }
         return false;
     }
+    
+    public NodoMedico obtenerMedicoPorEspecialidad(int especialidad) {
+        NodoMedico aux = this.getInicio();
+        while (aux != null) {
+            if (aux.getEspecialidad() == especialidad) {
+                return aux;
+            }
+            aux = aux.getSiguiente();
+        }
+        return null;
+    }
 }

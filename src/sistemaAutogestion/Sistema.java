@@ -281,16 +281,16 @@ public class Sistema implements IObligatorio {
 
         int[][] reporte = new int[31][20]; // Asumimos 30 dias y 20 especialidades
 
-        for (int i = 0; i < 31; i++) {
+        for (int i = 1; i <= 31; i++) {
             for (int j = 0; j < 20; j++) {
                 reporte[i][j] = 0;
             }
         }
 
-        for (int i = 0; i < 31; i++) {
+        for (int i = 0; i <= 31; i++) {
             for (int j = 0; j < 20; j++) {
                 System.out.print("Dia " + i + "/" + mes + " - Especialidad " + j + ":"+ "\t");
-                System.out.print(reporte[i][j] + "\t");
+                System.out.print(lr.obtenerCantidadPacienteXDia(i, año, j) + "\t");
             }
             System.out.println();
         }
