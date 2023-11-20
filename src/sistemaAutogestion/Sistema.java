@@ -208,6 +208,7 @@ public class Sistema implements IObligatorio {
     public Retorno listarMédicos() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         lm.listar();
+        ret.setValorString("Lista de médicos generada con éxito.");
         return ret;
     }
 
@@ -216,6 +217,7 @@ public class Sistema implements IObligatorio {
     public Retorno listarPacientes() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         lp.listar();
+        ret.setValorString("Lista de pacientes generada con éxito.");
         return ret;
     }
 
@@ -227,6 +229,7 @@ public class Sistema implements IObligatorio {
         }
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         lr.listar();
+        ret.setValorString("Lista de consultas generada con éxito.");
         return ret;
     }
 
@@ -268,11 +271,30 @@ public class Sistema implements IObligatorio {
 
     @Override
     public Retorno reporteDePacientesXFechaYEspecialidad(int mes, int año) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       if (mes < 1 || mes > 12 ) {
+           return new Retorno(Retorno.Resultado.ERROR_1);
+       }
+       
+       if (año < 2020 || año > 2023) {
+           return new Retorno(Retorno.Resultado.ERROR_1);
+       }
+
+        int[][] reporte = new int[31][20]; // Asumimos 30 dias y 20 especialidades
+
+        for (int i = 0; i < 31; i++) {
+            for (int j = 0; j < 20; j++) {
+                reporte[i][j] = 0;
+            }
+        }
+
+        for (int i = 0; i < 31; i++) {
+            for (int j = 0; j < 20; j++) {
+                System.out.print("Dia " + i + "/" + mes + " - Especialidad " + j + ":"+ "\t");
+                System.out.print(reporte[i][j] + "\t");
+            }
+            System.out.println();
+        }
+
+        return new Retorno(Retorno.Resultado.OK);
     }
-
-   
-
-    
-
 }

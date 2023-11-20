@@ -12,7 +12,8 @@ public class Main {
 
         public static void juegodeprueba(Sistema o, Prueba p) {
 
-        //juegos de prueba:
+        //JUEGOS DE PRUEBA:
+
         //crearSistemaDeAutogestion
         System.out.println("------------------------");
         System.out.println("CREACION DEL SISTEMA ");
@@ -22,12 +23,11 @@ public class Main {
         p.ver(o.crearSistemaDeAutogestion(-1).resultado, Retorno.Resultado.ERROR_1, "crearSistemaDeAutogestion(-1) = La cantidad maxima de pacientes no puede ser <=0 o > 15"); //NO CUMPLE CONDICION
 
         //registrarMedico
-        
         System.out.println("------------------------");
         System.out.println("REGISTRAR MEDICO ");
         System.out.println("------------------------");
         
-//CASOS OK
+        //CASOS OK
         p.ver(o.registrarMedico("Juan", 12, 1234, 2).resultado, Retorno.Resultado.OK, "registrarMedico(Juan, 12,1234,2) = Se pudo registrar el medico"); //PUEDE REGISTRARSE
         p.ver(o.listarMédicos().resultado, Retorno.Resultado.OK, "listarmedicos() = " + o.listarMédicos().valorString);
 
@@ -43,13 +43,13 @@ public class Main {
         p.ver(o.registrarMedico("Andres", 5, 3675, 18).resultado, Retorno.Resultado.OK, "registrarMedico(Andres,5,3675,18) = Se pudo registrar el medico"); //PUEDE REGISTRARSE
         p.ver(o.listarMédicos().resultado, Retorno.Resultado.OK, "listarmedicos() = " + o.listarMédicos().valorString);
 
-// CASOS DE ERROR        
+        // CASOS DE ERROR        
         p.ver(o.registrarMedico("Juan", 12, 1234, 2).resultado, Retorno.Resultado.ERROR_1, "registrarMedico(Juan, 12,1234,2) = Ya existe un medico con igual codigo"); //YA EXISTE EL MEDICO
         p.ver(o.listarMédicos().resultado, Retorno.Resultado.OK, "listarmedicos() = " + o.listarMédicos().valorString);
 
         p.ver(o.registrarMedico("Martin", 34, 6578, 0).resultado, Retorno.Resultado.ERROR_2, "registrarMedico(Martin, 34,6578,0) = La especialidad debe ser mayor >=1 o <=20"); //ESPECIALIDAD NO VALIDA
         p.ver(o.listarMédicos().resultado, Retorno.Resultado.OK, "listarmedicos() = " + o.listarMédicos().valorString);
-
+//
         System.out.println("------------------------");
         System.out.println("ELIMINAR MEDICO ");
         System.out.println("------------------------");       
@@ -84,7 +84,7 @@ public class Main {
         //CASOS ERROR_1
         p.ver(o.agregarPaciente("Jose", 52956338, "Bv Artigas").resultado, Retorno.Resultado.ERROR_1, "agregarPaciente(Jose, 52956338, Bv Artigas) = Ya existe un paciente con igual CI"); //NO PUEDE AGREGARSE
 
-        //LISTAOO LUEGO DE AGREBGAR
+        //LISTADO LUEGO DE AGREGAR
         System.out.println("Listado de pacientes luego de agregar");
         p.ver(o.listarPacientes().resultado, Retorno.Resultado.OK, "listarPacientes() = " + o.listarPacientes().valorString);
 
@@ -101,35 +101,24 @@ public class Main {
         Date fecha4 = new Date(123, 9, 1);
         
         
-
+        //REGISTRAR DIA DE CONSULTA
         p.ver(o.registrarDiaDeConsulta(89, fecha).resultado, Retorno.Resultado.ERROR_1, "registrarDiaDeConsulta(89, 18/10/2023)= No existe medico con ese codigo"); //se registra el dia de la consulta
-
         p.ver(o.registrarDiaDeConsulta(10, fecha).resultado, Retorno.Resultado.OK, "registrarDiaDeConsulta(10, 18/10/2023)= Se pudo registrar el dia de la consulta"); //se registra el dia de la consulta
-
         p.ver(o.registrarDiaDeConsulta(10, fecha).resultado, Retorno.Resultado.ERROR_2, "registrarDiaDeConsulta(10, 18/10/2023)= ya existe registrada esa fecha para ese medico"); //ya existe la fecha para el medico
-
         p.ver(o.registrarDiaDeConsulta(10, fecha2).resultado, Retorno.Resultado.OK, "registrarDiaDeConsulta(10, 19/10/2023)= Se pudo registrar el dia de la consulta"); //se registra el dia de la consulta
-
         p.ver(o.registrarDiaDeConsulta(10, fecha3).resultado, Retorno.Resultado.OK, "registrarDiaDeConsulta(10, 17/10/2023)= Se pudo registrar el dia de la consulta"); //se registra el dia de la consulta
-
         p.ver(o.registrarDiaDeConsulta(17, fecha3).resultado, Retorno.Resultado.OK, "registrarDiaDeConsulta(17, 17/10/2023)= Se pudo registrar el dia de la consulta"); //se registra el dia de la consulta
-
         p.ver(o.registrarDiaDeConsulta(17, fecha4).resultado, Retorno.Resultado.OK, "registrarDiaDeConsulta(17, 01/10/2023)= Se pudo registrar el dia de la consulta"); //se registra el dia de la consulta
 
         p.ver(o.reservaConsulta(89, 12300874, fecha).resultado, Retorno.Resultado.ERROR_2, "reservaConsulta(89, 12300874, 18/10/2023)= No existe medico con ese codigo"); //no existe ese medico
         p.ver(o.listarConsultas(89).resultado, Retorno.Resultado.ERROR_1, "listarConsultas(89) = No existe medico con ese codigo");
-
         p.ver(o.reservaConsulta(10, 12345678, fecha).resultado, Retorno.Resultado.ERROR_1, "reservaConsulta(10, 12345678, 18/10/2023)= No existe paciente con esa CI"); //no existe ese paciente
         p.ver(o.listarConsultas(10).resultado, Retorno.Resultado.OK, "listarConsultas(10) = " + o.listarConsultas(10).valorString);
         p.ver(o.listarPacientesEnEspera(10, fecha).resultado, Retorno.Resultado.ERROR_1, "listarPacientesEnEspera(10,18/10/2023) = El medico no tiene consultas en esa fecha"); //no hay pacientes en esa fecha
-
         p.ver(o.reservaConsulta(10, 12300874, fecha4).resultado, Retorno.Resultado.ERROR_4, "reservaConsulta(10, 12300874, 01/10/2023)= El medico no tiene registrada esa fecha"); //la fecha no fue registada a ese medeico
-
         p.ver(o.reservaConsulta(10, 12300874, fecha).resultado, Retorno.Resultado.OK, "reservaConsulta(10, 12300874, 18/10/2023)= Se realiza la apertura del pedido correctamente"); //se agrega paciente en fecha nueva
         p.ver(o.listarConsultas(10).resultado, Retorno.Resultado.OK, "listarConsultas(10) = " + o.listarConsultas(10).valorString);
-
         p.ver(o.listarPacientesEnEspera(10, fecha).resultado, Retorno.Resultado.OK, "listarPacientesEnEspera(10,18/10/2023) = " + o.listarPacientesEnEspera(10, fecha).valorString); //no hay ningun paciente en espera
-
         p.ver(o.reservaConsulta(10, 12300874, fecha).resultado, Retorno.Resultado.ERROR_3, "reservaConsulta(10, 12300874, 18/10/2023)= El medico ya tiene una consulta con ese paciente"); //ya esta el paciente en esa fecha
         p.ver(o.listarConsultas(10).resultado, Retorno.Resultado.OK, "listarConsultas(10) = " + o.listarConsultas(10).valorString);
 
@@ -195,9 +184,9 @@ public class Main {
         p.ver(o.historiaClínicaPaciente(98765432).resultado, Retorno.Resultado.ERROR_1, "historiaClinicaPaciente(98765432) = No existe la ci del paciente"); //no existe la ci del paciente
 
 //        p.ver(o.cerrarConsulta(89, fecha3).resultado, Retorno.Resultado.ERROR_1, "cerrarConsulta(89, 17/10/2023)= No existe el codigo del medico");  //no existe el codigo del medico
-//
+
 //        p.ver(o.cerrarConsulta(17, fecha4).resultado, Retorno.Resultado.ERROR_2, "cerrarConsulta(17, 01/10/2023)= El medico no tiene consultas en esa fecha");  //el medico no tiene consultas en esa fecha
-//
+
 //        p.ver(o.cerrarConsulta(17, fecha3).resultado, Retorno.Resultado.OK, "cerrarConsulta(17, 17/10/2023)= Se pudo cerrar las consultas correctamente");  //se puden cerrar las consultas del dia
         p.ver(o.listarConsultas(17).resultado, Retorno.Resultado.OK, "listarConsultas(17) = " + o.listarConsultas(17).valorString);
 
@@ -215,9 +204,9 @@ public class Main {
         p.ver(o.historiaClínicaPaciente(12300874).resultado, Retorno.Resultado.OK, "historiaClinicaPaciente(12300874) = " + o.historiaClínicaPaciente(12300874).valorString);
 
         p.ver(o.reporteDePacientesXFechaYEspecialidad(13, 2021).resultado, Retorno.Resultado.ERROR_1,"reporteDePacientesXFechaYEspecialidad(13, 2021) = El mes debe ser <= 12 o mayor a 0" );
-        
+//        
         p.ver(o.reporteDePacientesXFechaYEspecialidad(13, 2025).resultado, Retorno.Resultado.ERROR_1,"reporteDePacientesXFechaYEspecialidad(13, 2025) = El anio debe ser entre 2020 y 2023 " );
-
+//
         p.ver(o.reporteDePacientesXFechaYEspecialidad(10, 2023).resultado, Retorno.Resultado.OK,"reporteDePacientesXFechaYEspecialidad(10, 2023) =  "+o.reporteDePacientesXFechaYEspecialidad(10, 2023).valorString);
 
         p.ver(o.eliminarMedico(10).resultado, Retorno.Resultado.ERROR_2, "eliminarMedico(10) = No se puede eliminar un medico con consultas."); //NO ELIMINA MEDICO POR QUE TIENE CONSULTAS

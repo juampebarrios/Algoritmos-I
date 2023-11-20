@@ -14,8 +14,10 @@ public class Retorno {
     public Retorno(Resultado resultado) {
 
         this.resultado = resultado;
+        this.valorString = null;
     }
-        
-        
-        
+    
+    public void setValorString(String value) {
+        this.valorString = value;
+    }      
 }
