@@ -146,24 +146,24 @@ public class ListaReserva implements IListaReserva{
         return false;
     }
     
-    public int obtenerCantidadPacienteXDia(int dia, int año, int codEspecialidad, ListaMedico medicos) {
+    public int obtenerCantidadPacienteXDia(int dia, int mes, int año, int codEspecialidad, ListaMedico medicos) {
         int cantidadReservas = 0;
         ListaMedico medicosEspecialidad = medicos.obtenerMedicosPorEspecialidad(codEspecialidad);
         
         if (!this.esVacia()) {
             NodoReserva aux = this.getInicio();
-            Calendar calendar = Calendar.getInstance();
+            
 
             while (aux != null) {
                 // Configurar el calendario con la fecha de la reserva actual
-                calendar.setTime(aux.getFecha());
-
+                
                 // Obtener el año y el día de la reserva actual
-                int añoReserva = calendar.get(Calendar.YEAR);
-                int diaReserva = calendar.get(Calendar.DAY_OF_MONTH);
+                int añoReserva = aux.getFecha().getYear();
+                int mesReserva = aux.getFecha().getMonth();
+                int diaReserva = aux.getFecha().getDate();
                 
                 // Verificar si la reserva es del año y día especificados
-                if (añoReserva == año && diaReserva == dia && medicosEspecialidad.obtenerMedico(aux.getCodMedico()) != null) {
+                if (añoReserva == año && mesReserva == mes && diaReserva == dia && medicosEspecialidad.obtenerMedico(aux.getCodMedico()) != null) {
                     cantidadReservas++;
                 }
 

@@ -77,39 +77,10 @@ public class ListaMedico implements IListaMedico {
 
     @Override
     public void listar() {
-        if (!this.esVacia()) {
-            boolean cambio = true;
-            NodoMedico ultimo = null;
-
-            while (cambio) {
-                cambio = false;
-                NodoMedico actual = this.getInicio();
-
-                while (actual.getSiguiente() != ultimo) {
-                    if (actual.getNombre().compareTo(actual.getSiguiente().getNombre()) > 0) {
-                        String auxNombre = actual.getNombre();
-                        int auxCodMedico = actual.getCodMedico();
-
-                        actual.setNombre(actual.getSiguiente().getNombre());
-                        actual.setCodMedico(actual.getSiguiente().getCodMedico());
-
-                        actual.getSiguiente().setNombre(auxNombre);
-                        actual.getSiguiente().setCodMedico(auxCodMedico);
-
-                        cambio = true;
-                    }
-
-                    actual = actual.getSiguiente();
-                }
-
-                ultimo = actual;
-            }
-
-            NodoMedico aux = this.getInicio();
-            while (aux != null) {
-                System.out.println(aux.getNombre() + " - " + aux.getCodMedico());
-                aux = aux.getSiguiente();
-            }
+        NodoMedico aux = this.getInicio();
+        while(aux != null){
+            System.out.println(aux.getNombre() + " - " + aux.getCodMedico());
+            aux = aux.getSiguiente();
         }
     }
 
@@ -143,6 +114,8 @@ public class ListaMedico implements IListaMedico {
         return false;
     }
     
+    
+                        
     public NodoMedico obtenerMedicoPorEspecialidad(int especialidad) {
         NodoMedico aux = this.getInicio();
         while (aux != null) {
