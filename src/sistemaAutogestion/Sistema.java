@@ -308,13 +308,13 @@ public class Sistema implements IObligatorio {
             NodoMedico aux = lm.getInicio();
             while (aux != null){
                 int cantidadAux = lr.obtenerCantidadReservas(aux.getCodMedico());
-                if(cantidadAux > cantidad){
+                if(cantidadAux >= cantidad){
                     medicoMasReservas = aux;
                     cantidad = cantidadAux;
                 }
                 aux = aux.getSiguiente();
             }
-            System.out.println("El medico con mas reservas es: " + aux.getNombre() + " con la cantidad: " + cantidad);
+            System.out.println("El medico con mas reservas es: " + medicoMasReservas.getNombre() + " con la cantidad: " + cantidad);
         }
         
         return new Retorno(Retorno.Resultado.OK);

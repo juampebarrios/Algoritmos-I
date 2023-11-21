@@ -160,7 +160,9 @@ public class Main {
         //MATRIZ REPORTE DE PACIENTE POR ESPECIALIDAD Y FECHA
         p.ver(s.reporteDePacientesXFechaYEspecialidad(11, 2023).resultado, Retorno.Resultado.OK, "Matriz REPORTE DE PACIENTE POR ESPECIALIDAD Y FECHA");
         
-  
+        s.medicoConMasReservas();
+        s.listaConsultasNoAsistidas(1);
+        
         p.imprimirResultadosPrueba();
     }
     
